@@ -1,9 +1,9 @@
 import Overview from "./Overview"
 
-const Main = () => {
+const Main = (opdrachtList, averageM) => {
     return(
         <div className="main">
-            <Overview />
+            <Overview opdrachtList={opdrachtList} averageM={averageM} />
         </div>
     )
 }

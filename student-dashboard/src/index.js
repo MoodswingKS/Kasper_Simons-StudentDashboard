@@ -3,12 +3,32 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// redux
+import { Provider } from 'react-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import dataReducer from './redux/reducers/data-reducer';
+import thunk from 'redux-thunk'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
+const rootReducer = combineReducers({
+  list: dataReducer
+});
+
+const store = configureStore()
+
+export default function configureStore(preloadedState) {
+  const middlewareEnhancer = applyMiddleware(thunk)
+  const composedEnhancers = composeWithDevTools(middlewareEnhancer)
+  const store = createStore(rootReducer, preloadedState, composedEnhancers)
+  return store
+}
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
       <App />
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
