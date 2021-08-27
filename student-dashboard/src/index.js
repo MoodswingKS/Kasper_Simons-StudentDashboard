@@ -6,15 +6,14 @@ import reportWebVitals from './reportWebVitals';
 // redux
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import dataReducer from './redux/reducers/data-reducer';
+import dataReducer, { fetchMoreData } from './redux/reducers/data-reducer';
 import thunk from 'redux-thunk'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
 
 const rootReducer = combineReducers({
   list: dataReducer
 });
-
-const store = configureStore()
 
 export default function configureStore(preloadedState) {
   const middlewareEnhancer = applyMiddleware(thunk)
@@ -22,6 +21,9 @@ export default function configureStore(preloadedState) {
   const store = createStore(rootReducer, preloadedState, composedEnhancers)
   return store
 }
+
+const store = configureStore()
+store.dispatch(fetchMoreData)
 
 ReactDOM.render(
   <Provider store={store}>

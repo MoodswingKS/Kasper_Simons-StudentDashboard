@@ -1,13 +1,20 @@
 import * as actionTypes from './types.js'
+import { fetchData } from '../../fetchData.js'
 
+const initialState = []
 
-const showData = (state = {}, action) => {
+const dataReducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.SHOW_DATA:
-            return{ state: [...action.payload] }
+            return [ action.payload ]
         default:
             return state
     }
 }
 
-export default showData
+export const fetchMoreData = async (dispatch, getState) => {
+    const response = await fetchData()
+    dispatch({ type: 'SHOW_DATA', payload: response })
+}
+
+export default dataReducer

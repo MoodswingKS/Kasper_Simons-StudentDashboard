@@ -3,36 +3,14 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Nav from './components/Nav'
 import Main from './components/Main'
-import React, { useEffect, useState } from 'react';
-// csv
-import Papa from 'papaparse'
-import mockdata from './redux/reducers/mockdata_winc.csv'
+import React from 'react';
 // redux
-import { useSelector, useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { showData } from './redux/actions'
+import { useSelector } from 'react-redux';
+
 
 const App = () => {
-  const state = useSelector((state) => state)
-  const dispatch = useDispatch()
-
-  const ActionCreator = bindActionCreators(showData, dispatch)
-
+  const data = useSelector((state) => state.list)
   
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    const fetchData = async (dispatch) => {
-      const response = await fetch(mockdata)
-      const reader = response.body.getReader()
-      const result = await reader.read()
-      const decoder = new TextDecoder('utf-8')
-      const csv = decoder.decode(result.value)
-      const results =  Papa.parse(csv, { header: true, dynamicTyping: true })
-      setData(data)
-      return dispatch(results.data)
-    }
-    fetchData()
-  }, [data])
 
   const getNames = () => {
     const allNames = data.map(name => name.Student);
@@ -50,7 +28,6 @@ const App = () => {
 
 
   const getMoeilijkheidForStudent = () => {
-  
     const moeilijkheidArray = studentList.map((student, index) => {
 
       const studentData = data.filter(item => {
@@ -58,8 +35,6 @@ const App = () => {
       })
 
       const moeilijkheidTotaal = studentData.map(m => m.Moeilijkheid) 
-
-
       const totaalPerStudent = moeilijkheidTotaal.reduce((accumulator, currentValue) => accumulator + currentValue)
       const valueMoeilijkheid = totaalPerStudent / opdrachtLijst.length
       const moeilijkheidsMargin = Math.round(valueMoeilijkheid)
@@ -71,7 +46,6 @@ const App = () => {
       }
   
     })
-    // dispatch({ moeilijkheidArray })
     return moeilijkheidArray
   }
 
@@ -83,10 +57,11 @@ const App = () => {
     <div className="App">
       <Header />
       <Nav />
-      <Main data={data} 
+      <Main 
             studentList={studentList} 
             opdrachtLijst={opdrachtLijst} 
-            averageM={averageM} />
+            averageM={averageM} 
+            />
       <Footer />
     </div>
   );
