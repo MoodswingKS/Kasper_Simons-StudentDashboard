@@ -11,13 +11,14 @@ import listReducer, { getStudentList } from './redux/reducers/list-reducer';
 import assignmentReducer, { getAssignmentList } from './redux/reducers/assignment-reducer';
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import locationReducer from './redux/reducers/location-reducer';
 
 
 const rootReducer = combineReducers({
   list: dataReducer,
   students: listReducer,
-  assignments: assignmentReducer
-
+  assignments: assignmentReducer,
+  location: locationReducer
 });
 
 export default function configureStore(preloadedState) {
@@ -31,6 +32,7 @@ const store = configureStore()
 store.dispatch(fetchMoreData)
 store.dispatch(getStudentList)
 store.dispatch(getAssignmentList)
+
 
 ReactDOM.render(
   <Provider store={store}>

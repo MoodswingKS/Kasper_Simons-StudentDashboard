@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux'
 const Overview = () => {
     const studentList = useSelector((state) => state.students)
 
+
     const studentRoute = studentList.map((student, index) => {
         const routeName = `/${student.toString()}`
-        console.log(routeName)
         return <Route path={routeName} key={index}>
                 <div className="studentRoute">
                     <ChartStudent />
@@ -20,9 +20,11 @@ const Overview = () => {
     return (
         <Router>
             <Switch>
-                <Route exact path="/">
+                <Route exact path="/" component={Chart}>
                     <div>
                         <h3>Overview User-Story</h3>
+                        <p>*Blue = Difficulty</p>
+                        <p>*Yellow = Enjoyment</p>
                         <Chart />
                     </div>
                 </Route>

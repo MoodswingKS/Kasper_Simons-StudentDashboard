@@ -1,4 +1,4 @@
-import { VictoryChart, VictoryBar, VictoryGroup, VictoryLabel } from 'victory'
+import { VictoryChart, VictoryBar, VictoryGroup, VictoryZoomContainer } from 'victory'
 import { useSelector } from 'react-redux'
 
 const Chart = () => {
@@ -23,6 +23,7 @@ const Chart = () => {
 
         return {
           opdracht: opdracht.length > 10 ? opdracht.substr(0, opdracht.indexOf(' ')) : opdracht,
+          opdrachtFull: index,
           moeilijkheid: moeilijkheidsMargin,
           plezier: plezierMargin,
           id: index
@@ -32,27 +33,32 @@ const Chart = () => {
       return moeilijkheidArray
     }
     const averageM = getMoeilijkheidForStudent()
-    console.log(averageM)
 
     return (
         <div>
-            <VictoryChart domainPadding={30} width={1000} labelComponent={
-              <VictoryLabel angle={-45} textAnchor="end"/>
-            }>
-            <VictoryGroup offset={2}
+            Scroll to zoom
+            <VictoryChart 
+              domainPadding={30} 
+              // range={{ x: [averageM.opdrachtFull, 100] }}
+              // scale={{ x: "opdrachtFull" }}
+              width={1000}
+              domain={{y: [0, 5], x: [0, 56]}}
+              containerComponent={<VictoryZoomContainer 
+                zoomDimension="x"
+                zoomDomain={{x: [0, 10]}}/>}
+            >
+            
+            <VictoryGroup offset={20}
             >
             <VictoryBar 
                 data={averageM}
                 x="opdracht"
-                // labelComponent={
-                //   <VictoryLabel angle={-45} textAnchor="end"/>
-                // }
-                // labels="opdracht"
                 y="moeilijkheid"
                 style={{
                   data: {
+                    width: 30,
                     fill: "#004DFF",
-                    fillOpacity: 0.7
+                    fillOpacity: 0.8
                   }}}
             />
             <VictoryBar 
@@ -61,8 +67,9 @@ const Chart = () => {
                 y="plezier"
                 style={{
                   data: {
+                    width: 30,
                     fill: "#FFAE00",
-                    fillOpacity: 0.7
+                    fillOpacity: 0.8
                   }}}
             />
             </VictoryGroup>
