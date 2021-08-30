@@ -7,12 +7,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import dataReducer, { fetchMoreData } from './redux/reducers/data-reducer';
+import listReducer, { getStudentList } from './redux/reducers/list-reducer';
+import assignmentReducer, { getAssignmentList } from './redux/reducers/assignment-reducer';
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 
 const rootReducer = combineReducers({
-  list: dataReducer
+  list: dataReducer,
+  students: listReducer,
+  assignments: assignmentReducer
+
 });
 
 export default function configureStore(preloadedState) {
@@ -24,6 +29,8 @@ export default function configureStore(preloadedState) {
 
 const store = configureStore()
 store.dispatch(fetchMoreData)
+store.dispatch(getStudentList)
+store.dispatch(getAssignmentList)
 
 ReactDOM.render(
   <Provider store={store}>

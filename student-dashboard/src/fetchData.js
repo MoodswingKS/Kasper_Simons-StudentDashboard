@@ -10,6 +10,5 @@ export const fetchData = async () => {
     const csv = decoder.decode(result.value)
     const results =  Papa.parse(csv, { header: true, dynamicTyping: true })
     const data = results.data
-    console.log(data)
     return data
   }
