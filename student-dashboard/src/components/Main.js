@@ -2,7 +2,6 @@ import Chart from "./Chart";
 import { Route, Switch } from "react-router-dom";
 import ChartStudent from "./ChartStudent";
 import { useSelector } from "react-redux";
-import Table from "./Table";
 
 const Main = () => {
   const studentList = useSelector((state) => state.students);
@@ -24,9 +23,6 @@ const Main = () => {
         <Chart />
       </Route>
       {studentRoute}
-      <Route path="/List">
-        <Table />
-      </Route>
     </Switch>
   );
 };

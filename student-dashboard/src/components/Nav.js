@@ -20,9 +20,6 @@ const Nav = () => {
         <Link key="00" to="/">
           Home
         </Link>
-        <Link key="11" to="/List">
-          List
-        </Link>
       </div>
       <hr />
     </div>
