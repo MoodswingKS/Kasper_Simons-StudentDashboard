@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
 
+.chartContainer {
+  touch-action: none;
+}
+
 body {
   margin: 0;
   font-family: 'Noto Serif', serif;
@@ -49,4 +53,37 @@ code {
 .main {
   background-color: lightcyan;
 
+}
+
+.contentText {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  width: 100%;
+  grid-auto-flow: row;
+  grid-template-areas:
+  "student opdracht moeilijk plezier";
+}
+
+
+.student {
+  grid-area: "student";
+}
+
+.opdracht {
+  grid-area: "opdracht";
+}
+
+.moeilijk {
+  grid-area: "moeilijk";
+}
+
+.plezier {
+  grid-area: "plezier";
 }

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, Router } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { getLocation } from "../redux/reducers/location-reducer";
-
-const newHistory = createBrowserHistory();
+// import { useRouter } from "../useRouter";
+export const newHistory = createBrowserHistory();
 
 
 const Nav = () => {
@@ -16,10 +16,12 @@ const Nav = () => {
             </Link>
         )
     })
+
+    // const router = useRouter()
    
 
     return(
-        <Router history={newHistory} forceRefresh={true}>
+        <Router history={newHistory}>
         <div className="nav">
             {studentNavigation}
         </div>
@@ -27,7 +29,9 @@ const Nav = () => {
             <Link key="00" to="/">
                 Home
             </Link>
-            <Link key="11" to="/List">
+            <Link key="11" to="/List" 
+            // onClick={(e) => router.push("/about")}
+            >
                 Studentdata
             </Link>
         </div>

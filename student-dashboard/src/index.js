@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// redux
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import dataReducer, { fetchMoreData } from './redux/reducers/data-reducer';
@@ -12,13 +11,14 @@ import assignmentReducer, { getAssignmentList } from './redux/reducers/assignmen
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import locationReducer from './redux/reducers/location-reducer';
-
+import filterReducer, { filterList } from './redux/reducers/filter-reducer';
 
 const rootReducer = combineReducers({
   list: dataReducer,
   students: listReducer,
   assignments: assignmentReducer,
-  location: locationReducer
+  location: locationReducer,
+  filtered: filterReducer,
 });
 
 export default function configureStore(preloadedState) {
@@ -32,6 +32,9 @@ const store = configureStore()
 store.dispatch(fetchMoreData)
 store.dispatch(getStudentList)
 store.dispatch(getAssignmentList)
+store.dispatch(filterList)
+
+
 
 
 ReactDOM.render(
