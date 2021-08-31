@@ -10,14 +10,12 @@ import listReducer, { getStudentList } from './redux/reducers/list-reducer';
 import assignmentReducer, { getAssignmentList } from './redux/reducers/assignment-reducer';
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import locationReducer from './redux/reducers/location-reducer';
 import filterReducer, { filterList } from './redux/reducers/filter-reducer';
 
 const rootReducer = combineReducers({
   list: dataReducer,
   students: listReducer,
   assignments: assignmentReducer,
-  location: locationReducer,
   filtered: filterReducer,
 });
 
@@ -34,9 +32,6 @@ store.dispatch(getStudentList)
 store.dispatch(getAssignmentList)
 store.dispatch(filterList)
 
-
-
-
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
@@ -46,7 +41,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
